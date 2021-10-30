@@ -1,15 +1,33 @@
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import gql from "graphql-tag";
+import { initializeApollo } from "../apollo/client";
+import { IndexPage } from "../src/index";
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
+const ViewerQuery = gql`
+  query ViewerQuery {
+    viewer {
+      id
+      name
+      status
+    }
+  }
+`;
 
-export default IndexPage
+const Index = () => {
+  return <IndexPage />;
+};
+
+export async function getStaticProps() {
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query({
+    query: ViewerQuery,
+  });
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+    },
+  };
+}
+
+export default Index;

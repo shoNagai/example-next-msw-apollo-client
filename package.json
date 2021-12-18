@@ -5,7 +5,8 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",
-    "test": "jest --config ./jest.config.js"
+    "test": "jest --config ./jest.config.js",
+    "update": "npx msw init public --no-save"
   },
   "dependencies": {
     "@apollo/client": "^3.0.2",

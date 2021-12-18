@@ -4,7 +4,7 @@ export const handlers = [
   graphql.query(`ViewerQuery`, (req, res, ctx) => {
     return res(
       ctx.data({
-        viewer: { id: 1, name: "John Smith", status: "cached" },
+        viewer: { id: 1, name: "John", status: "cached" },
       })
     );
   }),

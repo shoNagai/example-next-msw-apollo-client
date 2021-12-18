@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { initializeApollo } from "../apollo/client";
+import { client } from "../src/apolloClient";
 import { IndexPage } from "../src/index";
 
 const ViewerQuery = gql`
@@ -17,15 +17,13 @@ const Index = () => {
 };
 
 export async function getStaticProps() {
-  const apolloClient = initializeApollo();
-
-  await apolloClient.query({
+  await client.query({
     query: ViewerQuery,
   });
 
   return {
     props: {
-      initialApolloState: apolloClient.cache.extract(),
+      initialApolloState: client.cache.extract(),
     },
   };
 }
